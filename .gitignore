@@ -1,0 +1,28 @@
+# Binaries and object files
+bin/
+build/
+*.exe
+*.o
+*.obj
+*.dll
+*.so
+*.dylib
+
+# Benchmark output and large generated test logs
+data/bench_*.log
+data/large_*.log
+data/stress_*.log
+*.tmp
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*~

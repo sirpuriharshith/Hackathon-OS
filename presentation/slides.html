@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultiLog-OS: Hackathon Presentation</title>
+    <style>
+        :root {
+            --bg: #0b0f19;
+            --slide-bg: #151c2e;
+            --accent: #38bdf8;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --border: #243048;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        .presentation-deck {
+            position: relative;
+            width: 90vw;
+            max-width: 1200px;
+            height: 80vh;
+            background: var(--slide-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            padding: 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .slide { display: none; height: 100%; flex-direction: column; }
+        .slide.active { display: flex; }
+        .slide-tag {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+        .slide-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: #ffffff;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+        }
+        .slide-content {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #cbd5e1;
+            flex: 1;
+            overflow-y: auto;
+        }
+        .slide-content p { margin-bottom: 16px; }
+        .slide-content ul { margin-left: 28px; margin-bottom: 16px; }
+        .slide-content li { margin-bottom: 10px; }
+        .slide-content strong { color: var(--accent); }
+        .footer-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+            margin-top: 20px;
+        }
+        .nav-buttons button {
+            background: #1e293b;
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 8px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .nav-buttons button:hover {
+            background: var(--accent);
+            color: #0b0f19;
+        }
+        .slide-counter { font-size: 14px; color: var(--muted); font-weight: 600; }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .card {
+            background: #0d1322;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+        }
+        .card h4 { color: var(--accent); margin-bottom: 6px; font-size: 16px; }
+        .table-slide { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 15px; }
+        .table-slide th, .table-slide td { padding: 10px 14px; border: 1px solid var(--border); text-align: left; }
+        .table-slide th { background: #0d1322; color: var(--accent); }
+    </style>
+</head>
+<body>
+    <div class="presentation-deck">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <div class="slide-tag">Operating Systems Project #17</div>
+            <h1 class="slide-title" style="font-size: 42px; color: var(--accent); border: none;">MultiLog-OS</h1>
+            <div class="slide-content" style="display:flex; flex-direction:column; justify-content:center;">
+                <h2 style="font-size: 26px; color:#ffffff; margin-bottom: 12px;">High-Performance Multithreaded Log Analysis & Threat Detection System</h2>
+                <p style="font-size: 18px; color: var(--muted);">An end-to-end Systems Programming project in C11 & POSIX mapped comprehensively to Course Outcomes CO-1 through CO-6.</p>
+                <div class="card-grid" style="margin-top: 32px;">
+                    <div class="card"><h4>Technology Stack</h4><p>C11, POSIX Threads, Win32/Linux Syscalls, Zero-Copy mmap</p></div>
+                    <div class="card"><h4>Course Syllabus</h4><p>CO-1 to CO-6 (Memory, I/O, IPC, Concurrency, Processes)</p></div>
+                    <div class="card"><h4>Verification</h4><p>100% Invariant Zero-Race Tests & 7.93x Amdahl Speedup</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="slide-tag">Context & Objectives</div>
+            <h2 class="slide-title">Problem Statement #17 & System Goals</h2>
+            <div class="slide-content">
+                <p><strong>Problem Statement:</strong> Develop a system that uses multiple threads to analyze large log files and identify errors, warnings, and suspicious events.</p>
+                <ul>
+                    <li><strong>I/O Bottlenecks:</strong> Traditional <code>fread</code> and <code>fgets</code> double-buffer data through C-library buffers and kernel caches, causing heavy context switching.</li>
+                    <li><strong>Concurrency Hazards:</strong> Parallel file parsing risks splitting records midway through tokens unless boundaries are newline-aligned. Naive thread locking bottlenecks performance.</li>
+                    <li><strong>Security Triage:</strong> Server logs contain high-frequency attacks: SQL Injection, XSS, Path Traversal, Recon Probes, and SSH Brute Force.</li>
+                    <li><strong>Our Objective:</strong> Build a low-level C11 multi-core engine with zero-copy memory mapping, thread arenas, lock-free atomics, and real-time threat intelligence.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="slide-tag">Curriculum Alignment</div>
+            <h2 class="slide-title">Course Outcomes Mapping (CO-1 to CO-6)</h2>
+            <div class="slide-content">
+                <table class="table-slide">
+                    <thead><tr><th>Outcome</th><th>Topic</th><th>MultiLog-OS Implementation</th></tr></thead>
+                    <tbody>
+                        <tr><td><b>CO-1</b></td><td>OS as Service Layer</td><td>User-Space parsing vs Kernel-Space file caching; CPU mode accounting</td></tr>
+                        <tr><td><b>CO-2</b></td><td>Processes & Control</td><td>Supervisor process lifecycle (READY, RUNNING, TERMINATED); CPU Core Affinity</td></tr>
+                        <tr><td><b>CO-3</b></td><td>IPC & Signals</td><td>Anonymous pipe telemetry streaming; signal handlers for SIGINT/SIGBREAK</td></tr>
+                        <tr><td><b>CO-4</b></td><td>Memory Management</td><td>4KB page-aligned Bump Arenas; Virtual address layout; Page Fault metrics</td></tr>
+                        <tr><td><b>CO-5</b></td><td>File Systems & I/O</td><td>Zero-copy mmap vs Direct Syscalls vs Buffered I/O; Boundary-Safe chunking</td></tr>
+                        <tr><td><b>CO-6</b></td><td>Concurrency & Sync</td><td>POSIX Threads, Mutexes, Condition Variables, Counting Semaphores</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <div class="slide-tag">Architecture</div>
+            <h2 class="slide-title">Multithreaded System Architecture</h2>
+            <div class="slide-content">
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>1. Boundary Partitioning</h4>
+                        <p>File partitioned across T threads. Offsets adjust forward to nearest '\n'. Guaranteed zero split records.</p>
+                    </div>
+                    <div class="card">
+                        <h4>2. POSIX Worker Pool</h4>
+                        <p>Workers execute in parallel, pinned to CPU cores. Each thread uses an isolated bump-pointer arena.</p>
+                    </div>
+                    <div class="card">
+                        <h4>3. Swappable I/O Modes</h4>
+                        <p>1. Memory-Mapped (mmap)<br>2. Direct Syscalls (read)<br>3. Standard Buffered (fread)</p>
+                    </div>
+                    <div class="card">
+                        <h4>4. State Synchronization</h4>
+                        <p>Per-thread statistics consolidated into GlobalStats using Mutexes, Semaphores, and C11 Atomics.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <div class="slide-tag">CO-4 Memory Architecture</div>
+            <h2 class="slide-title">Virtual Memory Management & Page Tables</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>4096-Byte Page Alignment:</strong> Thread memory pools are strictly aligned to the OS virtual memory page boundary (4KB), optimizing MMU address translations.</li>
+                    <li><strong>Bump-Pointer Memory Arenas:</strong> Rather than issuing thousands of lock-heavy <code>malloc()</code> calls, worker threads record alerts in an O(1) bump arena reclaimed in bulk at completion.</li>
+                    <li><strong>Process Address Space Inspection:</strong> MultiLog-OS programmatically prints its own virtual address segments: Text/Code, Initialized Data, Uninitialized BSS, Heap (brk), and Thread Stacks.</li>
+                    <li><strong>Page Fault Telemetry:</strong> Queries soft/minor page faults (resolved via page cache) and major page faults using OS kernel counters.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide">
+            <div class="slide-tag">CO-5 File I/O</div>
+            <h2 class="slide-title">Boundary-Safe Chunking & Zero-Copy I/O</h2>
+            <div class="slide-content">
+                <p><strong>The Boundary-Safe Chunking Algorithm:</strong></p>
+                <ul>
+                    <li>Nominal chunk size = <code>File_Size / Thread_Count</code>.</li>
+                    <li>For thread <em>i &gt; 0</em>, seeks to nominal offset and scans forward until the first <code>\n</code>. Chunk boundary is set to <code>pos + 1</code>.</li>
+                    <li>Thread <em>i-1</em> ends at this exact byte. Thread <em>i</em> starts at this byte.</li>
+                    <li><strong>Result:</strong> Zero corrupted lines, zero duplicate records, verified across all thread counts!</li>
+                </ul>
+                <p><strong>mmap Advantage:</strong> Maps file pages directly into user space address space. Kernel CPU time drops by <strong>56.4%</strong> compared to standard library stream I/O!</p>
+            </div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="slide">
+            <div class="slide-tag">CO-6 Concurrency</div>
+            <h2 class="slide-title">Synchronization Primitives & Amdahl's Law</h2>
+            <div class="slide-content">
+                <table class="table-slide">
+                    <thead><tr><th>Threads</th><th>Wall Time</th><th>Speedup</th><th>Efficiency</th><th>Throughput</th></tr></thead>
+                    <tbody>
+                        <tr><td>1 Thread</td><td>2.2208s</td><td>1.00x</td><td>100.0%</td><td>2.92 MB/s</td></tr>
+                        <tr><td>2 Threads</td><td>1.0806s</td><td>2.06x</td><td>102.8%</td><td>6.00 MB/s</td></tr>
+                        <tr><td>4 Threads</td><td>0.5238s</td><td>4.24x</td><td>106.0%</td><td>12.37 MB/s</td></tr>
+                        <tr><td>8 Threads</td><td>0.4023s</td><td>5.52x</td><td>69.0%</td><td>16.11 MB/s</td></tr>
+                        <tr><td>16 Threads</td><td>0.2799s</td><td>7.93x</td><td>49.6%</td><td>23.16 MB/s</td></tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 14px; font-size: 15px; color: var(--muted);">Near-linear scaling up to physical core count, reaching over 178,000 lines/second processing throughput!</p>
+            </div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div class="slide">
+            <div class="slide-tag">Threat Intelligence</div>
+            <h2 class="slide-title">Suspicious Event & Threat Detection</h2>
+            <div class="slide-content">
+                <div class="card-grid">
+                    <div class="card"><h4>SQL Injection</h4><p>' OR '1'='1, UNION SELECT, SLEEP(5), -- comment truncation</p></div>
+                    <div class="card"><h4>Cross-Site Scripting</h4><p>&lt;script&gt;, javascript: pseudo-protocols, onload=, onerror=</p></div>
+                    <div class="card"><h4>Directory Traversal</h4><p>../../etc/passwd, ..\..\windows\system32, boot.ini</p></div>
+                    <div class="card"><h4>Reconnaissance Probing</h4><p>/wp-admin, /.env, /.git/config, /phpmyadmin bot scans</p></div>
+                    <div class="card"><h4>SSH Brute Force</h4><p>Multiple failed password attempts tracked per offender IP</p></div>
+                    <div class="card"><h4>Privilege Escalation</h4><p>Unauthorized sudo commands, NOPASSWD executions, shell spawns</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9 -->
+        <div class="slide">
+            <div class="slide-tag">Team Roles</div>
+            <h2 class="slide-title">Team Participation & Deliverable 5</h2>
+            <div class="slide-content">
+                <ul>
+                    <li><strong>Member 1 (Concurrency & Sync Lead - CO-6):</strong> POSIX thread pool, mutex hierarchy, counting semaphores for I/O rate limiting, and lock-free atomic counters.</li>
+                    <li><strong>Member 2 (File Systems & Memory Lead - CO-4, CO-5):</strong> Zero-copy mmap implementation, boundary-safe chunk partitioning algorithm, 4KB page alignment, and bump-pointer arenas.</li>
+                    <li><strong>Member 3 (Systems Programming & IPC Lead - CO-1, CO-2, CO-3):</strong> Process supervisor lifecycle, user/kernel CPU accounting, anonymous pipe channels, and asynchronous signal handlers.</li>
+                    <li><strong>Member 4 (Threat Detection & Visualization Lead):</strong> Threat signature matching engine, automated test suite (5/5 tests), synthetic log generator, and Web Dashboard.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 10 -->
+        <div class="slide">
+            <div class="slide-tag">Conclusion</div>
+            <h2 class="slide-title">Impact, Demonstration & Summary</h2>
+            <div class="slide-content">
+                <p><strong>Deliverables Completed:</strong></p>
+                <ul>
+                    <li>✔ <strong>Working Prototype:</strong> High-speed C11/POSIX multithreaded log analyzer (<code>bin/multilog.exe</code>).</li>
+                    <li>✔ <strong>GitHub Repository:</strong> Complete modular code, Makefile, build script, and documentation.</li>
+                    <li>✔ <strong>Presentation:</strong> Professional PPTX deck (<code>presentation/MultiLog_OS_Presentation.pptx</code>) + HTML deck.</li>
+                    <li>✔ <strong>Live Demonstration:</strong> Interactive 1-click evaluation runner (<code>scripts/run_demo.bat</code>) and Web Dashboard.</li>
+                    <li>✔ <strong>Validation:</strong> Automated 5-part test suite proving zero race conditions across threads.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="footer-bar">
+            <div class="nav-buttons">
+                <button onclick="prevSlide()">◀ Previous</button>
+                <button onclick="nextSlide()">Next ▶</button>
+            </div>
+            <div class="slide-counter" id="slideCounter">Slide 1 of 10</div>
+            <div style="font-size: 13px; color: var(--accent); font-weight: 600;">MultiLog-OS Hackathon 2026</div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.getElementById('slideCounter');
+
+        function showSlide(index) {
+            slides.forEach((s, i) => s.classList.toggle('active', i === index));
+            counter.innerText = `Slide ${index + 1} of ${slides.length}`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>

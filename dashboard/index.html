@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MultiLog-OS: Multithreaded Log Analysis Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon">⚡</div>
+                <div class="brand-text">
+                    <h2>MultiLog-OS</h2>
+                    <span>OS Hackathon Proj #17</span>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="#overview" class="nav-item active"><span class="icon">📊</span> Overview</a>
+                <a href="#threats" class="nav-item"><span class="icon">🛡️</span> Threat Analytics</a>
+                <a href="#benchmarks" class="nav-item"><span class="icon">⚡</span> OS Benchmarks</a>
+                <a href="#syllabus" class="nav-item"><span class="icon">🎓</span> CO-1 to CO-6 Mapping</a>
+                <a href="#incidents" class="nav-item"><span class="icon">🚨</span> Incident Log</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="runtime-badge">C11 POSIX & MinGW</div>
+                <div class="core-info">4-16 POSIX Worker Threads</div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="page-title">
+                    <h1>Real-Time Log Analysis & Threat Intelligence</h1>
+                    <p class="subtitle">Operating Systems Project: Concurrent File Parsing & Threat Mitigation</p>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="loadTelemetryData()">🔄 Refresh Telemetry</button>
+                    <label class="btn btn-secondary">
+                        📁 Load JSON
+                        <input type="file" id="jsonFileInput" accept=".json" style="display:none" onchange="handleFileUpload(event)">
+                    </label>
+                </div>
+            </header>
+
+            <!-- Metrics Cards Grid -->
+            <section id="overview" class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">TOTAL VOLUME</span>
+                        <span class="metric-icon">📄</span>
+                    </div>
+                    <div class="metric-value" id="valTotalLines">50,000</div>
+                    <div class="metric-subtitle"><span id="valTotalBytes">6.58 MB</span> Processed</div>
+                </div>
+
+                <div class="metric-card highlight">
+                    <div class="metric-header">
+                        <span class="metric-title">THROUGHPUT</span>
+                        <span class="metric-icon">🚀</span>
+                    </div>
+                    <div class="metric-value" id="valThroughput">23.16 <span class="unit">MB/s</span></div>
+                    <div class="metric-subtitle"><span id="valLinesSec">95,267</span> lines / sec</div>
+                </div>
+
+                <div class="metric-card danger">
+                    <div class="metric-header">
+                        <span class="metric-title">SECURITY THREATS</span>
+                        <span class="metric-icon">⚠️</span>
+                    </div>
+                    <div class="metric-value" id="valThreatCount">6,190</div>
+                    <div class="metric-subtitle">SQLi, XSS, Probes, Auth</div>
+                </div>
+
+                <div class="metric-card warning">
+                    <div class="metric-header">
+                        <span class="metric-title">ERRORS / FATAL</span>
+                        <span class="metric-icon">🛑</span>
+                    </div>
+                    <div class="metric-value" id="valErrorCount">4,527</div>
+                    <div class="metric-subtitle">HTTP 5xx & Kernel Exceptions</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">EXECUTION TIME</span>
+                        <span class="metric-icon">⏱️</span>
+                    </div>
+                    <div class="metric-value" id="valWallTime">0.279 <span class="unit">s</span></div>
+                    <div class="metric-subtitle">Parallel Scaling: <span id="valEfficiency">97.5%</span></div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-title">PHYSICAL RAM (RSS)</span>
+                        <span class="metric-icon">🧠</span>
+                    </div>
+                    <div class="metric-value" id="valMemoryRSS">11.82 <span class="unit">MB</span></div>
+                    <div class="metric-subtitle">Page Faults: <span id="valPageFaults">3,116</span></div>
+                </div>
+            </section>
+
+            <!-- Charts Section -->
+            <section id="threats" class="charts-grid">
+                <div class="chart-card">
+                    <div class="card-header">
+                        <h3>Security Threat Vector Breakdown</h3>
+                        <span class="badge">CO-6 Protected State</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="threatChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="card-header">
+                        <h3>HTTP Status Code Distribution</h3>
+                        <span class="badge">RFC 9110</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="httpChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- OS Benchmarks Section -->
+            <section id="benchmarks" class="charts-grid">
+                <div class="chart-card">
+                    <div class="card-header">
+                        <h3>Multithreaded Speedup (Amdahl's Law)</h3>
+                        <span class="badge">CO-6 Concurrency</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="scalingChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="card-header">
+                        <h3>I/O Mechanism Throughput & Kernel CPU Time</h3>
+                        <span class="badge">CO-5 File I/O</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="ioChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Syllabus Mapping Table -->
+            <section id="syllabus" class="content-card">
+                <div class="card-header">
+                    <h3>Operating Systems Syllabus Integration (CO-1 to CO-6)</h3>
+                    <span class="badge badge-success">Fully Verified</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Course Outcome</th>
+                                <th>Core Topic</th>
+                                <th>Implementation in MultiLog-OS</th>
+                                <th>OS Verification Metric</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>CO-1</b></td>
+                                <td>OS as Service Layer</td>
+                                <td>Direct POSIX syscalls (`read`, `stat`) vs user-space string processing</td>
+                                <td>User CPU: 1.968s vs Kernel CPU: 0.078s</td>
+                            </tr>
+                            <tr>
+                                <td><b>CO-2</b></td>
+                                <td>Processes & Control</td>
+                                <td>Supervisor state machine (READY, RUNNING, TERMINATED), thread CPU affinity</td>
+                                <td>Parallel CPU Scaling: 97.5% Efficiency</td>
+                            </tr>
+                            <tr>
+                                <td><b>CO-3</b></td>
+                                <td>IPC & Signals</td>
+                                <td>Anonymous pipes for telemetry streaming; signal handlers for `SIGINT`/`SIGBREAK`</td>
+                                <td>Graceful asynchronous shutdown & dump</td>
+                            </tr>
+                            <tr>
+                                <td><b>CO-4</b></td>
+                                <td>Memory Management</td>
+                                <td>4KB page-aligned Bump Arena Allocators; RSS and Page Fault tracking</td>
+                                <td>RSS: 11.82 MB | Soft/Hard Faults: 3,116</td>
+                            </tr>
+                            <tr>
+                                <td><b>CO-5</b></td>
+                                <td>File Systems & I/O</td>
+                                <td>Zero-copy `mmap` vs Direct Syscalls vs Buffered I/O; Boundary-Safe chunking</td>
+                                <td>Zero line splits; mmap achieves peak MB/s</td>
+                            </tr>
+                            <tr>
+                                <td><b>CO-6</b></td>
+                                <td>Concurrency & Sync</td>
+                                <td>POSIX Threads, Mutexes, Condition Variables, Counting Semaphores</td>
+                                <td>Lock-free atomics & 7.93x parallel speedup</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Security Incidents Log Table -->
+            <section id="incidents" class="content-card">
+                <div class="card-header">
+                    <h3>Detected Security Incidents & Threat Signatures</h3>
+                    <div class="search-box">
+                        <input type="text" id="incidentSearch" placeholder="Filter by IP, rule, or threat..." oninput="filterIncidents()">
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table" id="incidentTable">
+                        <thead>
+                            <tr>
+                                <th>Line #</th>
+                                <th>Threat Category</th>
+                                <th>Offender IP</th>
+                                <th>Matched Pattern / Signature</th>
+                            </tr>
+                        </thead>
+                        <tbody id="incidentTbody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

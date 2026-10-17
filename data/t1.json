@@ -1,0 +1,44 @@
+{
+  "project": "MultiLog-OS",
+  "syllabus": "Operating Systems (CO-1 to CO-6)",
+  "config": {
+    "filename": "data\test_50k.log",
+    "file_size_bytes": 6897127,
+    "thread_count": 1,
+    "io_mode": "Memory-Mapped I/O (mmap/MapViewOfFile)"
+  },
+  "summary": {
+    "total_lines": 50000,
+    "total_bytes": 6797127,
+    "total_errors": 4527,
+    "total_warnings": 8409,
+    "total_info": 37064
+  },
+  "threats": {
+    "sql_injection": 1277,
+    "cross_site_scripting": 942,
+    "directory_traversal": 1038,
+    "recon_probe": 1172,
+    "auth_failure": 1439,
+    "privilege_escalation": 322
+  },
+  "http_status": {
+    "2xx": 25173,
+    "3xx": 9960,
+    "4xx": 5941,
+    "5xx": 3040
+  },
+  "os_telemetry": {
+    "elapsed_wall_sec": 2.3861,
+    "user_cpu_time_sec": 2.1406,
+    "kernel_cpu_time_sec": 0.1094,
+    "cpu_utilization_pct": 94.30,
+    "throughput_mb_s": 2.72,
+    "lines_per_sec": 20955,
+    "resident_set_size_bytes": 11464704,
+    "peak_working_set_bytes": 11481088,
+    "page_fault_count": 2866
+  },
+  "alerts_sample": [
+  ]
+}

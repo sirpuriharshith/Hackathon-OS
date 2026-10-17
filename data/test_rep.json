@@ -1,0 +1,344 @@
+{
+  "project": "MultiLog-OS",
+  "syllabus": "Operating Systems (CO-1 to CO-6)",
+  "config": {
+    "filename": "data\test_50k.log",
+    "file_size_bytes": 6897127,
+    "thread_count": 4,
+    "io_mode": "Memory-Mapped I/O (mmap/MapViewOfFile)"
+  },
+  "summary": {
+    "total_lines": 50000,
+    "total_bytes": 6797127,
+    "total_errors": 4527,
+    "total_warnings": 8409,
+    "total_info": 37064
+  },
+  "threats": {
+    "sql_injection": 1277,
+    "cross_site_scripting": 942,
+    "directory_traversal": 1038,
+    "recon_probe": 1172,
+    "auth_failure": 1439,
+    "privilege_escalation": 322
+  },
+  "http_status": {
+    "2xx": 25173,
+    "3xx": 9960,
+    "4xx": 5941,
+    "5xx": 3040
+  },
+  "os_telemetry": {
+    "elapsed_wall_sec": 0.6570,
+    "user_cpu_time_sec": 2.3594,
+    "kernel_cpu_time_sec": 0.0625,
+    "cpu_utilization_pct": 92.16,
+    "throughput_mb_s": 9.87,
+    "lines_per_sec": 76107,
+    "resident_set_size_bytes": 12394496,
+    "peak_working_set_bytes": 12410880,
+    "page_fault_count": 3114
+  },
+  "alerts_sample": [
+    {
+      "line": 1,
+      "threat": "CROSS_SITE_SCRIPTING",
+      "ip": "185.220.101.5",
+      "rule": "javascript:"
+    },
+    {
+      "line": 13,
+      "threat": "RECON_PROBE",
+      "ip": "103.251.167.20",
+      "rule": "/actuator"
+    },
+    {
+      "line": 15,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "194.26.29.112",
+      "rule": "..\\..\\"
+    },
+    {
+      "line": 22,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "194.26.29.112",
+      "rule": "authentication failure"
+    },
+    {
+      "line": 32,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "103.251.167.20",
+      "rule": "../.."
+    },
+    {
+      "line": 34,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "185.220.101.5",
+      "rule": "..\\..\\"
+    },
+    {
+      "line": 36,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "89.248.163.74",
+      "rule": "failed password"
+    },
+    {
+      "line": 65,
+      "threat": "SQL_INJECTION",
+      "ip": "103.251.167.20",
+      "rule": "--"
+    },
+    {
+      "line": 96,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "89.248.163.74",
+      "rule": "invalid credentials"
+    },
+    {
+      "line": 118,
+      "threat": "PRIVILEGE_ESCALATION",
+      "ip": "127.0.0.1",
+      "rule": "sudo: auth failure"
+    },
+    {
+      "line": 119,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "103.251.167.20",
+      "rule": "failed password"
+    },
+    {
+      "line": 123,
+      "threat": "RECON_PROBE",
+      "ip": "194.26.29.112",
+      "rule": "/.env"
+    },
+    {
+      "line": 126,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "185.220.101.5",
+      "rule": "../.."
+    },
+    {
+      "line": 142,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "194.26.29.112",
+      "rule": "failed password"
+    },
+    {
+      "line": 161,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "185.220.101.5",
+      "rule": "authentication failure"
+    },
+    {
+      "line": 166,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "194.26.29.112",
+      "rule": "../.."
+    },
+    {
+      "line": 169,
+      "threat": "CROSS_SITE_SCRIPTING",
+      "ip": "194.26.29.112",
+      "rule": "onload="
+    },
+    {
+      "line": 176,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "185.220.101.5",
+      "rule": "authentication failure"
+    },
+    {
+      "line": 179,
+      "threat": "RECON_PROBE",
+      "ip": "89.248.163.74",
+      "rule": "/cgi-bin/"
+    },
+    {
+      "line": 180,
+      "threat": "CROSS_SITE_SCRIPTING",
+      "ip": "185.220.101.5",
+      "rule": "onerror="
+    },
+    {
+      "line": 181,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "185.220.101.5",
+      "rule": "authentication failure"
+    },
+    {
+      "line": 195,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "194.26.29.112",
+      "rule": "failed password"
+    },
+    {
+      "line": 200,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "103.251.167.20",
+      "rule": "../.."
+    },
+    {
+      "line": 210,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "103.251.167.20",
+      "rule": "../.."
+    },
+    {
+      "line": 224,
+      "threat": "RECON_PROBE",
+      "ip": "89.248.163.74",
+      "rule": "/web-console"
+    },
+    {
+      "line": 227,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "185.220.101.5",
+      "rule": "authentication failure"
+    },
+    {
+      "line": 237,
+      "threat": "RECON_PROBE",
+      "ip": "103.251.167.20",
+      "rule": "/wp-login"
+    },
+    {
+      "line": 242,
+      "threat": "SQL_INJECTION",
+      "ip": "89.248.163.74",
+      "rule": "--"
+    },
+    {
+      "line": 250,
+      "threat": "SQL_INJECTION",
+      "ip": "194.26.29.112",
+      "rule": "--"
+    },
+    {
+      "line": 274,
+      "threat": "RECON_PROBE",
+      "ip": "103.251.167.20",
+      "rule": "/web-console"
+    },
+    {
+      "line": 276,
+      "threat": "SQL_INJECTION",
+      "ip": "194.26.29.112",
+      "rule": "--"
+    },
+    {
+      "line": 300,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "103.251.167.20",
+      "rule": "../.."
+    },
+    {
+      "line": 305,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "194.26.29.112",
+      "rule": "invalid credentials"
+    },
+    {
+      "line": 314,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "194.26.29.112",
+      "rule": "authentication failure"
+    },
+    {
+      "line": 323,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "194.26.29.112",
+      "rule": "failed password"
+    },
+    {
+      "line": 324,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "185.220.101.5",
+      "rule": "..\\..\\"
+    },
+    {
+      "line": 330,
+      "threat": "RECON_PROBE",
+      "ip": "194.26.29.112",
+      "rule": "/.env"
+    },
+    {
+      "line": 347,
+      "threat": "PRIVILEGE_ESCALATION",
+      "ip": "127.0.0.1",
+      "rule": "command=/bin/bash"
+    },
+    {
+      "line": 364,
+      "threat": "SQL_INJECTION",
+      "ip": "89.248.163.74",
+      "rule": "--"
+    },
+    {
+      "line": 368,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "185.220.101.5",
+      "rule": "invalid credentials"
+    },
+    {
+      "line": 372,
+      "threat": "RECON_PROBE",
+      "ip": "103.251.167.20",
+      "rule": "/.git/config"
+    },
+    {
+      "line": 377,
+      "threat": "RECON_PROBE",
+      "ip": "194.26.29.112",
+      "rule": "/.env"
+    },
+    {
+      "line": 379,
+      "threat": "CROSS_SITE_SCRIPTING",
+      "ip": "103.251.167.20",
+      "rule": "onerror="
+    },
+    {
+      "line": 382,
+      "threat": "SQL_INJECTION",
+      "ip": "103.251.167.20",
+      "rule": "--"
+    },
+    {
+      "line": 402,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "89.248.163.74",
+      "rule": "../.."
+    },
+    {
+      "line": 413,
+      "threat": "SQL_INJECTION",
+      "ip": "89.248.163.74",
+      "rule": "--"
+    },
+    {
+      "line": 415,
+      "threat": "RECON_PROBE",
+      "ip": "103.251.167.20",
+      "rule": "/.env"
+    },
+    {
+      "line": 419,
+      "threat": "RECON_PROBE",
+      "ip": "103.251.167.20",
+      "rule": "/actuator"
+    },
+    {
+      "line": 421,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "103.251.167.20",
+      "rule": "../.."
+    },
+    {
+      "line": 428,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "185.220.101.5",
+      "rule": "../.."
+    }
+  ]
+}

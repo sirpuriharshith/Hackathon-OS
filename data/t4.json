@@ -1,0 +1,344 @@
+{
+  "project": "MultiLog-OS",
+  "syllabus": "Operating Systems (CO-1 to CO-6)",
+  "config": {
+    "filename": "data\test_50k.log",
+    "file_size_bytes": 6897127,
+    "thread_count": 4,
+    "io_mode": "Memory-Mapped I/O (mmap/MapViewOfFile)"
+  },
+  "summary": {
+    "total_lines": 50000,
+    "total_bytes": 6797127,
+    "total_errors": 4527,
+    "total_warnings": 8409,
+    "total_info": 37064
+  },
+  "threats": {
+    "sql_injection": 1277,
+    "cross_site_scripting": 942,
+    "directory_traversal": 1038,
+    "recon_probe": 1172,
+    "auth_failure": 1439,
+    "privilege_escalation": 322
+  },
+  "http_status": {
+    "2xx": 25173,
+    "3xx": 9960,
+    "4xx": 5941,
+    "5xx": 3040
+  },
+  "os_telemetry": {
+    "elapsed_wall_sec": 0.6297,
+    "user_cpu_time_sec": 2.2656,
+    "kernel_cpu_time_sec": 0.0781,
+    "cpu_utilization_pct": 93.05,
+    "throughput_mb_s": 10.29,
+    "lines_per_sec": 79406,
+    "resident_set_size_bytes": 12455936,
+    "peak_working_set_bytes": 12472320,
+    "page_fault_count": 3129
+  },
+  "alerts_sample": [
+    {
+      "line": 28,
+      "threat": "CROSS_SITE_SCRIPTING",
+      "ip": "194.26.29.112",
+      "rule": "onload="
+    },
+    {
+      "line": 40,
+      "threat": "CROSS_SITE_SCRIPTING",
+      "ip": "194.26.29.112",
+      "rule": "javascript:"
+    },
+    {
+      "line": 42,
+      "threat": "PRIVILEGE_ESCALATION",
+      "ip": "127.0.0.1",
+      "rule": "sudo: auth failure"
+    },
+    {
+      "line": 54,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "89.248.163.74",
+      "rule": "authentication failure"
+    },
+    {
+      "line": 58,
+      "threat": "RECON_PROBE",
+      "ip": "103.251.167.20",
+      "rule": "/cgi-bin/"
+    },
+    {
+      "line": 65,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "194.26.29.112",
+      "rule": "../.."
+    },
+    {
+      "line": 66,
+      "threat": "SQL_INJECTION",
+      "ip": "89.248.163.74",
+      "rule": "--"
+    },
+    {
+      "line": 68,
+      "threat": "SQL_INJECTION",
+      "ip": "194.26.29.112",
+      "rule": "--"
+    },
+    {
+      "line": 76,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "185.220.101.5",
+      "rule": "..\\..\\"
+    },
+    {
+      "line": 112,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "185.220.101.5",
+      "rule": "../.."
+    },
+    {
+      "line": 118,
+      "threat": "SQL_INJECTION",
+      "ip": "194.26.29.112",
+      "rule": "--"
+    },
+    {
+      "line": 134,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "89.248.163.74",
+      "rule": "../.."
+    },
+    {
+      "line": 139,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "103.251.167.20",
+      "rule": "failed password"
+    },
+    {
+      "line": 146,
+      "threat": "RECON_PROBE",
+      "ip": "185.220.101.5",
+      "rule": "/.git/config"
+    },
+    {
+      "line": 156,
+      "threat": "RECON_PROBE",
+      "ip": "185.220.101.5",
+      "rule": "/wp-admin"
+    },
+    {
+      "line": 168,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "103.251.167.20",
+      "rule": "../.."
+    },
+    {
+      "line": 169,
+      "threat": "CROSS_SITE_SCRIPTING",
+      "ip": "89.248.163.74",
+      "rule": "<script"
+    },
+    {
+      "line": 174,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "194.26.29.112",
+      "rule": "..\\..\\"
+    },
+    {
+      "line": 175,
+      "threat": "PRIVILEGE_ESCALATION",
+      "ip": "127.0.0.1",
+      "rule": "command=/bin/bash"
+    },
+    {
+      "line": 179,
+      "threat": "SQL_INJECTION",
+      "ip": "194.26.29.112",
+      "rule": "--"
+    },
+    {
+      "line": 183,
+      "threat": "CROSS_SITE_SCRIPTING",
+      "ip": "89.248.163.74",
+      "rule": "javascript:"
+    },
+    {
+      "line": 184,
+      "threat": "CROSS_SITE_SCRIPTING",
+      "ip": "185.220.101.5",
+      "rule": "<script"
+    },
+    {
+      "line": 186,
+      "threat": "CROSS_SITE_SCRIPTING",
+      "ip": "194.26.29.112",
+      "rule": "onload="
+    },
+    {
+      "line": 189,
+      "threat": "SQL_INJECTION",
+      "ip": "103.251.167.20",
+      "rule": "--"
+    },
+    {
+      "line": 192,
+      "threat": "RECON_PROBE",
+      "ip": "185.220.101.5",
+      "rule": "/.env"
+    },
+    {
+      "line": 196,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "89.248.163.74",
+      "rule": "..\\..\\"
+    },
+    {
+      "line": 225,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "89.248.163.74",
+      "rule": "invalid credentials"
+    },
+    {
+      "line": 244,
+      "threat": "SQL_INJECTION",
+      "ip": "89.248.163.74",
+      "rule": "--"
+    },
+    {
+      "line": 253,
+      "threat": "PRIVILEGE_ESCALATION",
+      "ip": "127.0.0.1",
+      "rule": "command=/bin/bash"
+    },
+    {
+      "line": 257,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "185.220.101.5",
+      "rule": "..\\..\\"
+    },
+    {
+      "line": 274,
+      "threat": "CROSS_SITE_SCRIPTING",
+      "ip": "89.248.163.74",
+      "rule": "<script"
+    },
+    {
+      "line": 280,
+      "threat": "RECON_PROBE",
+      "ip": "89.248.163.74",
+      "rule": "/.git/config"
+    },
+    {
+      "line": 297,
+      "threat": "SQL_INJECTION",
+      "ip": "194.26.29.112",
+      "rule": "--"
+    },
+    {
+      "line": 321,
+      "threat": "RECON_PROBE",
+      "ip": "103.251.167.20",
+      "rule": "/.git/config"
+    },
+    {
+      "line": 326,
+      "threat": "DIRECTORY_TRAVERSAL",
+      "ip": "194.26.29.112",
+      "rule": "../.."
+    },
+    {
+      "line": 333,
+      "threat": "RECON_PROBE",
+      "ip": "89.248.163.74",
+      "rule": "/phpmyadmin"
+    },
+    {
+      "line": 342,
+      "threat": "CROSS_SITE_SCRIPTING",
+      "ip": "103.251.167.20",
+      "rule": "onerror="
+    },
+    {
+      "line": 364,
+      "threat": "RECON_PROBE",
+      "ip": "185.220.101.5",
+      "rule": "/.env"
+    },
+    {
+      "line": 369,
+      "threat": "SQL_INJECTION",
+      "ip": "194.26.29.112",
+      "rule": "--"
+    },
+    {
+      "line": 371,
+      "threat": "CROSS_SITE_SCRIPTING",
+      "ip": "103.251.167.20",
+      "rule": "javascript:"
+    },
+    {
+      "line": 372,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "103.251.167.20",
+      "rule": "authentication failure"
+    },
+    {
+      "line": 373,
+      "threat": "RECON_PROBE",
+      "ip": "89.248.163.74",
+      "rule": "/wp-admin"
+    },
+    {
+      "line": 384,
+      "threat": "SQL_INJECTION",
+      "ip": "89.248.163.74",
+      "rule": "--"
+    },
+    {
+      "line": 392,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "194.26.29.112",
+      "rule": "failed password"
+    },
+    {
+      "line": 404,
+      "threat": "PRIVILEGE_ESCALATION",
+      "ip": "127.0.0.1",
+      "rule": "sudo: auth failure"
+    },
+    {
+      "line": 405,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "89.248.163.74",
+      "rule": "failed password"
+    },
+    {
+      "line": 413,
+      "threat": "CROSS_SITE_SCRIPTING",
+      "ip": "89.248.163.74",
+      "rule": "javascript:"
+    },
+    {
+      "line": 419,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "89.248.163.74",
+      "rule": "failed password"
+    },
+    {
+      "line": 426,
+      "threat": "RECON_PROBE",
+      "ip": "185.220.101.5",
+      "rule": "/cgi-bin/"
+    },
+    {
+      "line": 435,
+      "threat": "AUTHENTICATION_FAILURE",
+      "ip": "194.26.29.112",
+      "rule": "authentication failure"
+    }
+  ]
+}
